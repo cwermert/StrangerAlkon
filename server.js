@@ -60,7 +60,9 @@ router.route('/messages')
     
     var message = new Message();
 
-    console.log(req.body);
+    if(req.body.ToCountry) {
+      req.body.message = req.body.Body;
+    }
 
     if (filter.isProfane(req.body.message)) {
       res.send('Try again, pottymouth.');
