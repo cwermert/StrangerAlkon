@@ -15,6 +15,6 @@ function postMessage (msg) {
 function keyWasPressed(event) {
   if (event.key === "Enter") {
     postMessage(messageInput.value);
-    // Post 
+    messageInput.value = '';
   }
 }
