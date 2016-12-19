@@ -18,13 +18,15 @@ app.use(bodyParser.json());
 app.use(express.static('public'))
 
 var port = process.env.PORT || 8080; // set our port
-// process.env.MONGODB_URI = 'mongodb://localhost:27017/StrangerWall';
+process.env.MONGODB_URI = 'mongodb://localhost:27017/StrangerWall';
 var mongoose  = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI); // connect to our database
 var Message = require('./app/models/message');
 
 let splitIt = function (str) {
   let response = str.split('');
+
+  console.log(response);
 
   if (response.length > 50) {
     return ['F', 'U']
@@ -41,8 +43,6 @@ var router = express.Router();
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-  // do logging
-  console.log('Something is happening.');
   next();
 });
 
@@ -61,20 +61,23 @@ router.route('/messages')
     var message = new Message();
 
     if (filter.isProfane(req.body.message)) {
-      console.log('YO');
       res.send('Try again, pottymouth.');
+    } else
+    if (message.message.split('').length > 50) {
+      res.send('shorter message, please')
     } else {
+      message.message = req.body.message.replace(/[^\w\s]|_/g, '')
+                                        .replace(/[0-9]/g, '')
+                                        .replace(/\s+/g, ' ');
+      message.read = false;
 
-    message.message = req.body.message.replace(/[^\w\s]|_/g, '')
-                                      .replace(/\s+/g, ' ');
-    message.read = false;
+      message.save(function(err) {
+        if (err) {
+          res.send(err);
+        }
 
-    message.save(function(err) {
-      if (err)
-        res.send(err);
-
-      res.json({ message: 'Message created!' });
-    });
+        res.json({ message: message.message });
+      });
 
     }
     
@@ -82,8 +85,6 @@ router.route('/messages')
 
   // get all the messages (accessed at GET http://localhost:8080/api/messages)
   .get(function(req, res) {
-
-    console.log(filter.clean('Oh fuck'));
 
     Message.find(function(err, messages) {
       if (err)
