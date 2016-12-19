@@ -97,14 +97,21 @@ router.route('/messages')
 router.route('/messages/latest')
   .get(function (req, res) {
 
+    var msg_id;
+
     Message.findOneAndUpdate({ read: false }, {$set: { read: true }})
     .then((msg) => {
       if(!msg) {
         res.send(null)
       } else {
+        msg_id = msg._id;
         res.send(splitIt(msg.message));
       }
-    });
+    })
+    .then(() => {
+      console.log('MESSAGE ID');
+      console.log(msg_id);
+    })
 
   })
 
