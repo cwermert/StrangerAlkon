@@ -63,7 +63,7 @@ router.route('/messages')
     if (filter.isProfane(req.body.message)) {
       res.send('Try again, pottymouth.');
     } else
-    if (message.message.split('').length > 50) {
+    if (req.body.message.split('').length > 50) {
       res.send('shorter message, please')
     } else {
       message.message = req.body.message.replace(/[^\w\s]|_/g, '')
