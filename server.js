@@ -109,8 +109,15 @@ router.route('/messages/latest')
       }
     })
     .then(() => {
-      console.log('MESSAGE ID');
-      console.log(msg_id);
+        Message.remove({
+          _id: msg_id
+        }, function(err, message) {
+          if (err) {
+            console.error(err)
+          }
+          console.log('Deleted message');
+          return;
+        });
     })
 
   })
