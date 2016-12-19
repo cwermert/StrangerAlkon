@@ -101,7 +101,7 @@ body, input { font-family: serif; }
 
 @media (max-width: 767px) {
   .fullscreen-bg {
-    background: url('../img/videoframe.jpg') center center / cover no-repeat;
+    background: url('https://cdn.gomix.com/ab8ca667-1773-4b8e-a6d6-3a4ab53bedc0%2Fbg.jpg') center center / cover no-repeat;
   }
 
   .fullscreen-bg__video {
