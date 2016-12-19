@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 var port     = process.env.PORT || 8080; // set our port
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://cwermert:OmE4vZA1Y!Je@ds139448.mlab.com:39448/heroku_wtlzvrbs'); // connect to our database
+mongoose.connect(process.env.MONGODB_URI); // connect to our database
 var Message     = require('./app/models/message');
 
 let splitIt = function (str) {
