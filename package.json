@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Craig Wermert <cwermert@commandalkon.com> (http://commandalkon.com)",
-  "license": "ISC",
+  "license": "WTFPL",
+  "engine": {
+    "node": "6.2.2"
+  },
   "dependencies": {
     "badwords-list": "^1.0.0",
     "body-parser": "^1.15.2",
