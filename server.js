@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'))
 
 var port = process.env.PORT || 8080; // set our port
-process.env.MONGODB_URI = 'mongodb://localhost:27017/StrangerWall';
+// process.env.MONGODB_URI = 'mongodb://localhost:27017/StrangerWall';
 var mongoose  = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI); // connect to our database
 var Message = require('./app/models/message');
