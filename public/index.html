@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>!!!!!</title>
-</head>
-<body>
+  <head>
+    <title>Wat?</title>
 
-  <h1>🍩</h1>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="app/css/app.css">
+  </head>
+  <body>
+    <div class="fullscreen-bg">
+      <video loop muted autoplay poster="img/videoframe.jpg" class="fullscreen-bg__video">
+        <source src="https://cdn.gomix.com/ab8ca667-1773-4b8e-a6d6-3a4ab53bedc0%2Fstranger.webm" type="video/webm">
+        <source src="https://cdn.gomix.com/ab8ca667-1773-4b8e-a6d6-3a4ab53bedc0%2Fstranger.mp4" type="video/mp4">
+      </video>
+    </div>
 
-  <div id="api"></div>
+    <div class="container">
 
-<script src="app/js/swagger.js"></script>
-<script src="app/js/app.js"></script>
+        <input type="text" class="message white px2" placeholder="Message" onKeyUp="keyWasPressed(event)">
+        
+    </div>
+    <script src="app/js/fetch.js"></script>
+    <script src="app/js/app.js"></script>
 
-</body>
+  </body>
 </html>
