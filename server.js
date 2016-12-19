@@ -60,6 +60,8 @@ router.route('/messages')
     
     var message = new Message();
 
+    console.log(req.body);
+
     if (filter.isProfane(req.body.message)) {
       res.send('Try again, pottymouth.');
     } else
