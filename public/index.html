@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wat?</title>
+    <title>u&#653;op &#477;p&#7433;sd&#8745;</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
     <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
     <link rel="stylesheet" href="app/css/app.css">
   </head>
   <body>
     <div class="fullscreen-bg">
-      <video loop muted autoplay poster="https://cdn.gomix.com/ab8ca667-1773-4b8e-a6d6-3a4ab53bedc0%2Fbg.jpg" class="fullscreen-bg__video">
-        <source src="https://cdn.gomix.com/ab8ca667-1773-4b8e-a6d6-3a4ab53bedc0%2Fstranger.webm" type="video/webm">
-        <source src="https://cdn.gomix.com/ab8ca667-1773-4b8e-a6d6-3a4ab53bedc0%2Fstranger.mp4" type="video/mp4">
+      <video loop muted autoplay poster="app/img/stranger-bg.jpg" class="fullscreen-bg__video">
+        <source src="app/video/stranger-bg.webm" type="video/webm">
+        <source src="app/video/stranger-bg.mp4" type="video/mp4">
       </video>
     </div>
 
     <div class="container">
-
-        <input type="text" class="message white px2" placeholder="Message" onKeyUp="keyWasPressed(event)">
+        <div class="unread"></div>
+        <div class="clearfix mxn2">
+          <div class="col-10 px2 mx-auto">
+            <h3 class="white message-center text-center"></h3>
+            <input type="text" class="message white px2" placeholder="Message" onKeyUp="keyWasPressed(event)">
+          </div>
+        </div>
+        
         
     </div>
     <script src="app/js/fetch.js"></script>

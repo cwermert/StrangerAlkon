@@ -17,8 +17,17 @@ var Filter = (function() {
     return false;
   };
 
+  Filter.prototype.cleanMiddle = function cleanMiddle(bookends, len) {
+    var stars = Array(len - 1).join('*');
+    var sanitized = bookends[0] + stars + bookends[1];
+    return sanitized;
+  }
+
   Filter.prototype.replaceWord = function replaceWord(string) {
-    return string.replace(this.regex, '').replace(/\w/g, this.placeHolder);
+    var firstLast = [string.charAt(0), string.charAt(string.length - 1)];
+    console.log(this.cleanMiddle(firstLast, string.length));
+    return this.cleanMiddle(firstLast, string.length);
+    // return string.replace(this.regex, '').replace(/\w/g, this.placeHolder);
   };
 
   Filter.prototype.clean = function clean(string) {

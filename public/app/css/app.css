@@ -1,7 +1,10 @@
-body, input { font-family: serif; }
+html, body, .message {
+  font-family: 'Libre Baskerville', serif;
+  color: #fff;
+}
 
 .container {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,4 +110,15 @@ body, input { font-family: serif; }
   .fullscreen-bg__video {
     display: none;
   }
+}
+
+.unread {
+  color: #fff;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.text-center {
+  text-align: center;
 }

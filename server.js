@@ -2,10 +2,11 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');
+var express = require('express');
 var bodyParser = require('body-parser');
-var app        = express();
-var morgan     = require('morgan');
+var app = express();
+var morgan = require('morgan');
+
 var Filter = require('./app/filter.js');
 var filter = new Filter();
 
@@ -18,15 +19,13 @@ app.use(bodyParser.json());
 app.use(express.static('public'))
 
 var port = process.env.PORT || 8080; // set our port
-// process.env.MONGODB_URI = 'mongodb://localhost:27017/StrangerWall';
+process.env.MONGODB_URI = 'mongodb://localhost:27017/StrangerWall';
 var mongoose  = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI); // connect to our database
 var Message = require('./app/models/message');
 
 let splitIt = function (str) {
   let response = str.split('');
-
-  console.log(response);
 
   if (response.length > 50) {
     return ['F', 'U']
@@ -64,25 +63,28 @@ router.route('/messages')
       req.body.message = req.body.Body;
     }
 
-    if (filter.isProfane(req.body.message)) {
-      res.send('Try again, pottymouth.');
-    } else
     if (req.body.message.split('').length > 50) {
-      res.send('shorter message, please')
+      res.send({ error: 'shorter message, please' })
     } else {
       message.message = req.body.message.replace(/[^\w\s]|_/g, '')
                                         .replace(/[0-9]/g, '')
                                         .replace(/\s+/g, ' ');
-      message.read = false;
 
-      message.save(function(err) {
-        if (err) {
-          res.send(err);
-        }
+      if (filter.isProfane(message.message)) {
+        res.json({ profanity: "You need to wash your mouth out!" });
+        // message.message = filter.clean(message.message);
+      } else {
 
-        res.json({ message: message.message });
-      });
+        message.read = false;
 
+        message.save(function(err) {
+          if (err) {
+            res.send(err);
+          }
+
+          res.json({ message: message.message });
+        });
+      }
     }
     
   })
@@ -98,31 +100,34 @@ router.route('/messages')
     });
   });
 
+router.route('/messages/unread')
+  .get(function (req, res, next) {
+    Message.find({ read: false })
+      .then(function (msg) {
+        res.send(msg);
+      });
+  });
+
 router.route('/messages/latest')
-  .get(function (req, res) {
+  .get(function (req, res, next) {
 
     var msg_id;
 
-    Message.findOneAndUpdate({ read: false }, {$set: { read: true }})
-    .then((msg) => {
-      if(!msg) {
-        res.send(null)
-      } else {
-        msg_id = msg._id;
-        res.send(splitIt(msg.message));
-      }
-    })
-    .then(() => {
-        Message.remove({
-          _id: msg_id
-        }, function(err, message) {
-          if (err) {
-            console.error(err)
-          }
-          console.log('Deleted message');
-          return;
-        });
-    })
+    Message.find({ read: false })
+      .then(function (msg) {
+        if (msg.length > 0) {
+          let oldestMsg = msg[0];
+          msg[0].read = true;
+          msg[0].save(function (err) {
+            if(err) {
+              console.error('ERROR!', err);
+            }
+          });
+          res.send(splitIt(oldestMsg.message));
+        } else {
+          res.send(null)
+        }
+      })
 
   })
 

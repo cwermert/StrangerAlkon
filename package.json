@@ -16,9 +16,15 @@
   "dependencies": {
     "badwords-list": "^1.0.0",
     "body-parser": "^1.15.2",
+    "errorhandler": "^1.5.0",
     "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "express-react-views": "^0.10.2",
     "mongoose": "^4.7.3",
     "morgan": "^1.7.0",
-    "profanity-filter": "^0.2.1"
+    "profanity-filter": "^0.2.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-forms": "^2.0.0-beta35"
   }
 }
