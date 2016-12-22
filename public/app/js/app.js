@@ -30,6 +30,7 @@ function getUnread () {
   fetch('/api/messages/unread')
   .then(function (data) {  
     console.log('Request succeeded with JSON response', data);
+    return data.length;
   })  
   .catch(function (error) {  
     console.log('Request failed', error);  
